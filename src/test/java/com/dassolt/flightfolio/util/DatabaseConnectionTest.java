@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnectionTest {
-    public static void main(String[] args) {
+    private static void testDatabaseConnection() {
         // Charger les variables d'environnement à partir du fichier .env
         Dotenv dotenv = Dotenv.load();
 
@@ -28,5 +28,9 @@ public class DatabaseConnectionTest {
         } catch (SQLException e) {
             System.out.println("Erreur lors de la connexion à la base de données : " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        testDatabaseConnection();
     }
 }
