@@ -18,6 +18,10 @@ public class CategoryDAO implements GenericDAO<Category>{
         }
     }
 
+    private Category createCategoryFromResultSet(ResultSet rs) throws SQLException {
+        return new Category(rs.getInt("id"), rs.getString("name"));
+    }
+
     @Override
     public void add(Category category) throws SQLException {
         String query = "INSERT INTO category(name) VALUES(?)";
@@ -36,7 +40,7 @@ public class CategoryDAO implements GenericDAO<Category>{
             statement.setInt(1, id);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
-                    category = extractCategoryFromResultSet(rs);
+                    category = createCategoryFromResultSet(rs);
                 }
             }
         }
@@ -52,7 +56,7 @@ public class CategoryDAO implements GenericDAO<Category>{
         try (Statement statement = conn.createStatement();
              ResultSet rs = statement.executeQuery(query)) {
             while (rs.next()) {
-                Category category = extractCategoryFromResultSet(rs);
+                Category category = createCategoryFromResultSet(rs);
                 categories.add(category);
             }
         }
@@ -81,7 +85,4 @@ public class CategoryDAO implements GenericDAO<Category>{
         }
     }
 
-    private Category extractCategoryFromResultSet(ResultSet rs) throws SQLException {
-        return new Category(rs.getInt("id"), rs.getString("name"));
-    }
 }

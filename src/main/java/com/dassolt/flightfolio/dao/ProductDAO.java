@@ -18,6 +18,25 @@ public class ProductDAO implements GenericDAO<Product> {
         }
     }
 
+    private Product createProductFromResultSet(ResultSet rs) throws SQLException {
+        return new Product(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("description"),
+                rs.getDouble("price"),
+                rs.getInt("quantity"),
+                rs.getInt("engine_nb"),
+                rs.getInt("seat_nb"),
+                rs.getDouble("wingspan"),
+                rs.getDouble("length"),
+                rs.getInt("service_ceiling"),
+                rs.getBoolean("can_spread_democracy"),
+                rs.getInt("manufacturer_id"),
+                rs.getInt("engine_manufacturer_id"),
+                rs.getInt("category_id")
+        );
+    }
+
     @Override
     public void add(Product product) throws SQLException {
         String query = "INSERT INTO product(name,description,price,quantity,engine_nb,seat_nb,wingspan,length,service_ceiling,can_spread_democracy,manufacturer_id,engine_manufacturer_id,category_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -49,7 +68,7 @@ public class ProductDAO implements GenericDAO<Product> {
             statement.setInt(1, id);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
-                    product = extractProductFromResultSet(rs);
+                    product = createProductFromResultSet(rs);
                 }
             }
         }
@@ -63,7 +82,7 @@ public class ProductDAO implements GenericDAO<Product> {
         try (Statement statement = conn.createStatement();
              ResultSet rs = statement.executeQuery(query)) {
             while (rs.next()) {
-                products.add(extractProductFromResultSet(rs));
+                products.add(createProductFromResultSet(rs));
             }
         }
         return products;
@@ -102,22 +121,4 @@ public class ProductDAO implements GenericDAO<Product> {
         }
     }
 
-    private Product createProductFromResultSet(ResultSet rs) throws SQLException {
-        return new Product(
-                rs.getInt("id"),
-                rs.getString("name"),
-                rs.getString("description"),
-                rs.getDouble("price"),
-                rs.getInt("quantity"),
-                rs.getInt("engine_nb"),
-                rs.getInt("seat_nb"),
-                rs.getDouble("wingspan"),
-                rs.getDouble("length"),
-                rs.getInt("service_ceiling"),
-                rs.getBoolean("can_spread_democracy"),
-                rs.getInt("manufacturer_id"),
-                rs.getInt("engine_manufacturer_id"),
-                rs.getInt("category_id")
-        );
-    }
 }
