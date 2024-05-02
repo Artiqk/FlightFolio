@@ -18,12 +18,10 @@ public class ProductDAO implements GenericDAO<Product> {
     }
 
     @Override
-    public void add(Product product) {
+    public void add(Product product) throws SQLException {
         String query = "INSERT INTO product(name,description,price,quantity,engine_nb,seat_nb,wingspan,length,service_ceiling,can_spread_democracy,manufacturer_id,engine_manufacturer_id,category_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            conn.setAutoCommit(false);
-
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getDescription());
             stmt.setDouble(3, product.getPrice());
@@ -37,29 +35,7 @@ public class ProductDAO implements GenericDAO<Product> {
             stmt.setInt(11, product.getManufacturerId());
             stmt.setInt(12, product.getEngineManufacturerId());
             stmt.setInt(13, product.getCategoryId());
-
             stmt.executeUpdate();
-
-            ResultSet rs = stmt.getGeneratedKeys();
-
-            if (rs.next()) {
-                product.setId(rs.getInt(1));
-            }
-
-            conn.commit();
-        } catch (SQLException e) {
-            try {
-                if (!(conn == null || conn.isClosed())) conn.rollback();
-            } catch (SQLException ex) {
-                System.out.println("ERROR: Failed to rollback transaction - " + ex.getMessage());
-            }
-            System.out.println("ERROR: Failed to add product to the database - " + e.getMessage());
-        } finally {
-            try {
-                if (!(conn == null || conn.isClosed())) conn.setAutoCommit(true);
-            } catch (SQLException e) {
-                System.out.println("ERROR: Could not reset auto-commit - " + e.getMessage());
-            }
         }
     }
 
