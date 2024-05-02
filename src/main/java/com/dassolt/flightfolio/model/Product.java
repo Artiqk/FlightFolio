@@ -2,6 +2,7 @@ package com.dassolt.flightfolio.model;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Product {
@@ -162,5 +163,18 @@ public class Product {
 
         return String.format("Name : %s\n\nDescription : %s\n\nPrice : $%s\n\nQuantity : %d\n",
                              this.getName(), this.getDescription(), formattedPrice, this.getQuantity());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Double.compare(getPrice(), product.getPrice()) == 0 && getQuantity() == product.getQuantity() && getEngineNb() == product.getEngineNb() && getSeatNb() == product.getSeatNb() && Double.compare(getWingspan(), product.getWingspan()) == 0 && Double.compare(getLength(), product.getLength()) == 0 && getServiceCeiling() == product.getServiceCeiling() && canSpreadDemocracy == product.canSpreadDemocracy && Objects.equals(getId(), product.getId()) && Objects.equals(getName(), product.getName()) && Objects.equals(getDescription(), product.getDescription()) && Objects.equals(getManufacturerId(), product.getManufacturerId()) && Objects.equals(getEngineManufacturerId(), product.getEngineManufacturerId()) && Objects.equals(getCategoryId(), product.getCategoryId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getDescription(), getPrice(), getQuantity(), getEngineNb(), getSeatNb(), getWingspan(), getLength(), getServiceCeiling(), canSpreadDemocracy, getManufacturerId(), getEngineManufacturerId(), getCategoryId());
     }
 }

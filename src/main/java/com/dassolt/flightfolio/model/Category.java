@@ -1,5 +1,6 @@
 package com.dassolt.flightfolio.model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Category {
@@ -30,5 +31,18 @@ public class Category {
     @Override
     public String toString() {
         return this.getName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(getId(), category.getId()) && Objects.equals(getName(), category.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
     }
 }
