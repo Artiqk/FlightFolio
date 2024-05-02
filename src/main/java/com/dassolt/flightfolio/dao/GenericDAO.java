@@ -1,4 +1,4 @@
 package com.dassolt.flightfolio.dao;
 
-public class ManufacturerDAOImpl {
+public interface GenericDAO {
 }
