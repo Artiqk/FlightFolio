@@ -102,8 +102,9 @@ public class ProductDAO implements GenericDAO<Product> {
         }
     }
 
-    private Product extractProductFromResultSet(ResultSet rs) throws SQLException {
-        return new Product(rs.getInt("id"),
+    private Product createProductFromResultSet(ResultSet rs) throws SQLException {
+        return new Product(
+                rs.getInt("id"),
                 rs.getString("name"),
                 rs.getString("description"),
                 rs.getDouble("price"),
@@ -116,6 +117,7 @@ public class ProductDAO implements GenericDAO<Product> {
                 rs.getBoolean("can_spread_democracy"),
                 rs.getInt("manufacturer_id"),
                 rs.getInt("engine_manufacturer_id"),
-                rs.getInt("category_id"));
+                rs.getInt("category_id")
+        );
     }
 }
