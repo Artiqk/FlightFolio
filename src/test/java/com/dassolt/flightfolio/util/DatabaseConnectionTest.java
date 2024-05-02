@@ -1,11 +1,6 @@
-package org.connexion.db;
-import io.github.cdimascio.dotenv.Dotenv;
+package test.java.com.dassolt.flightfolio.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-public class Main {
+public class DatabaseConnectionTest {
     public static void main(String[] args) {
         // Charger les variables d'environnement à partir du fichier .env
         Dotenv dotenv = Dotenv.load();
