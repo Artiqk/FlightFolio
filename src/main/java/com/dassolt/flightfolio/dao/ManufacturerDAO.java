@@ -8,43 +8,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManufacturerDAO implements GenericDAO<Manufacturer> {
-    private Connection conn;
+    private final Connection conn;
 
-    public ManufacturerDAO() {
-        try {
-            conn = DatabaseConnection.getConnection();
-        } catch (Exception e) {
-            System.out.println("ERROR: @ManufacturerDAO" + e.getMessage());
-        }
+    public ManufacturerDAO() throws SQLException {
+        conn = DatabaseConnection.getConnection();
     }
 
     private Manufacturer createManufacturerFromResultSet(ResultSet rs) throws SQLException {
         return new Manufacturer(
+                rs.getString("id"),
                 rs.getString("name")
         );
     }
 
     @Override
     public void add(Manufacturer manufacturer) throws SQLException {
-        String query = "INSERT INTO manufacturer(name) VALUES(?)";
+        String query = "INSERT INTO manufacturer(id, name) VALUES(?,?)";
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setString(1, manufacturer.getName());
+            statement.setString(1, manufacturer.getId());
+            statement.setString(2, manufacturer.getName());
             statement.executeUpdate();
         }
     }
 
     @Override
-    public Manufacturer findByName(String name) throws SQLException {
-        String query = "SELECT * FROM manufacturer WHERE name = ?";
+    public Manufacturer findById(String id) throws SQLException {
+        String query = "SELECT * FROM manufacturer WHERE id = ?";
         Manufacturer manufacturer = null;
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setString(1, name);
+            statement.setString(1, id);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                manufacturer = new Manufacturer(name);
+                manufacturer = createManufacturerFromResultSet(rs);
             }
         }
 
@@ -68,19 +66,20 @@ public class ManufacturerDAO implements GenericDAO<Manufacturer> {
 
     @Override
     public void update(Manufacturer manufacturer) throws SQLException {
-        String query = "UPDATE manufacturer SET name=?";
+        String query = "UPDATE manufacturer SET name = ? WHERE id = ?";
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, manufacturer.getName());
+            statement.setString(2, manufacturer.getId());
         }
     }
 
     @Override
     public void delete(Manufacturer manufacturer) throws SQLException {
-        String query = "DELETE FROM product WHERE name = ?";
+        String query = "DELETE FROM product WHERE id = ?";
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setString(1, manufacturer.getName());
+            statement.setString(1, manufacturer.getId());
             statement.executeUpdate();
         }
     }

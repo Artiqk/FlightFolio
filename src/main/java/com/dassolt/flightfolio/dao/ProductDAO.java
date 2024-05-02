@@ -8,19 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO implements GenericDAO<Product> {
-    private Connection conn;
+    private final Connection conn;
 
-    public ProductDAO() {
-        try {
-            conn = DatabaseConnection.getConnection();
-        } catch (Exception e) {
-            System.out.println("ERROR: @ProductDAO" + e.getMessage());
-        }
+    public ProductDAO() throws SQLException {
+        conn = DatabaseConnection.getConnection();
     }
 
     private Product createProductFromResultSet(ResultSet rs) throws SQLException {
         return new Product(
-                rs.getInt("id"),
+                rs.getString("id"),
                 rs.getString("name"),
                 rs.getString("description"),
                 rs.getDouble("price"),
@@ -39,39 +35,42 @@ public class ProductDAO implements GenericDAO<Product> {
 
     @Override
     public void add(Product product) throws SQLException {
-        String query = "INSERT INTO product(name,description,price,quantity,engine_nb,seat_nb,wingspan,length,service_ceiling,can_spread_democracy,manufacturer_id,engine_manufacturer_id,category_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO product(id,name,description,price,quantity,engine_nb,seat_nb,wingspan,length,service_ceiling,can_spread_democracy,manufacturer_id,engine_manufacturer_id,category_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setString(1, product.getName());
-            statement.setString(2, product.getDescription());
-            statement.setDouble(3, product.getPrice());
-            statement.setInt(4, product.getQuantity());
-            statement.setInt(5, product.getEngineNb());
-            statement.setInt(6, product.getSeatNb());
-            statement.setDouble(7, product.getWingspan());
-            statement.setDouble(8, product.getLength());
-            statement.setInt(9, product.getServiceCeiling());
-            statement.setBoolean(10, product.canSpreadDemocracy());
-            statement.setInt(11, product.getManufacturerId());
-            statement.setInt(12, product.getEngineManufacturerId());
-            statement.setInt(13, product.getCategoryId());
+            statement.setString(1, product.getId());
+            statement.setString(2, product.getName());
+            statement.setString(3, product.getDescription());
+            statement.setDouble(4, product.getPrice());
+            statement.setInt(5, product.getQuantity());
+            statement.setInt(6, product.getEngineNb());
+            statement.setInt(7, product.getSeatNb());
+            statement.setDouble(8, product.getWingspan());
+            statement.setDouble(9, product.getLength());
+            statement.setInt(10, product.getServiceCeiling());
+            statement.setBoolean(11, product.canSpreadDemocracy());
+            statement.setInt(12, product.getManufacturerId());
+            statement.setInt(13, product.getEngineManufacturerId());
+            statement.setInt(14, product.getCategoryId());
             statement.executeUpdate();
         }
     }
 
     @Override
-    public Product findById(int id) throws SQLException {
+    public Product findById(String id) throws SQLException {
         String query = "SELECT * FROM product WHERE id = ?";
         Product product = null;
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setInt(1, id);
+            statement.setString(1, id);
+
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     product = createProductFromResultSet(rs);
                 }
             }
         }
+
         return product;
     }
 
@@ -79,18 +78,21 @@ public class ProductDAO implements GenericDAO<Product> {
     public List<Product> findAll() throws SQLException {
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM product";
+
         try (Statement statement = conn.createStatement();
              ResultSet rs = statement.executeQuery(query)) {
             while (rs.next()) {
                 products.add(createProductFromResultSet(rs));
             }
         }
+
         return products;
     }
 
     @Override
     public void update(Product product) throws SQLException {
-        String query = "UPDATE product SET name=?, description=?, price=?, quantity=?, engine_nb=?, seat_nb=?, wingspan=?, length=?, service_ceiling=?, can_spread_democracy=?, manufacturer_id=?, engine_manufacturer_id=?, category_id=? WHERE id=?";
+        String query = "UPDATE product SET name = ?, description = ?, price = ?, quantity = ?, engine_nb = ?, seat_nb = ?, wingspan = ?, length = ?, service_ceiling = ?, can_spread_democracy = ?, manufacturer_id = ?, engine_manufacturer_id = ?, category_id = ? WHERE id = ?";
+
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
@@ -105,16 +107,17 @@ public class ProductDAO implements GenericDAO<Product> {
             statement.setInt(11, product.getManufacturerId());
             statement.setInt(12, product.getEngineManufacturerId());
             statement.setInt(13, product.getCategoryId());
-            statement.setInt(14, product.getId());
+            statement.setString(14, product.getId());
             statement.executeUpdate();
         }
     }
 
     @Override
     public void delete(Product product) throws SQLException{
-        String query = "DELETE FROM product WHERE id=?";
+        String query = "DELETE FROM product WHERE id = ?";
+
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setInt(1, product.getId());
+            statement.setString(1, product.getId());
             statement.executeUpdate();
         }
     }

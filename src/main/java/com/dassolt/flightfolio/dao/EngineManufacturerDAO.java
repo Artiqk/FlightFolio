@@ -4,17 +4,14 @@ import com.dassolt.flightfolio.model.EngineManufacturer;
 import com.dassolt.flightfolio.util.DatabaseConnection;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class EngineManufacturerDAO implements GenericDAO<EngineManufacturer> {
-    private Connection conn;
+    private final Connection conn;
 
-    public EngineManufacturerDAO() {
-        try {
-            conn = DatabaseConnection.getConnection();
-        } catch (Exception e) {
-            System.out.println("ERROR: @EngineManufacturerDAO" + e.getMessage());
-        }
+    public EngineManufacturerDAO() throws SQLException {
+        conn = DatabaseConnection.getConnection();
     }
 
     @Override
@@ -23,7 +20,7 @@ public class EngineManufacturerDAO implements GenericDAO<EngineManufacturer> {
     }
 
     @Override
-    public EngineManufacturer findById(int id) {
+    public EngineManufacturer findById(String id) {
         return null;
     }
 

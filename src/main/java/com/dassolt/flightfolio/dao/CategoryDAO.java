@@ -8,36 +8,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO implements GenericDAO<Category>{
-    private Connection conn;
+    private final Connection conn;
 
-    public CategoryDAO() {
-        try {
-            conn = DatabaseConnection.getConnection();
-        } catch (Exception e) {
-            System.out.println("ERROR: @CategoryDAO" + e.getMessage());
-        }
+    public CategoryDAO() throws SQLException {
+        conn = DatabaseConnection.getConnection();
     }
 
     private Category createCategoryFromResultSet(ResultSet rs) throws SQLException {
-        return new Category(rs.getInt("id"), rs.getString("name"));
+        return new Category(
+                rs.getString("id"),
+                rs.getString("name")
+        );
     }
 
     @Override
     public void add(Category category) throws SQLException {
-        String query = "INSERT INTO category(name) VALUES(?)";
+        String query = "INSERT INTO category(id, name) VALUES(?,?)";
+
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setString(1, category.getName());
+            statement.setString(1, category.getId());
+            statement.setString(2, category.getName());
             statement.executeUpdate();
         }
     }
 
     @Override
-    public Category findById(int id) throws SQLException {
+    public Category findById(String id) throws SQLException {
         String query = "SELECT * FROM category WHERE id = ?";
         Category category = null;
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setInt(1, id);
+            statement.setString(1, id);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     category = createCategoryFromResultSet(rs);
@@ -70,7 +71,7 @@ public class CategoryDAO implements GenericDAO<Category>{
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, category.getName());
-            statement.setInt(2, category.getId());
+            statement.setString(2, category.getId());
             statement.executeUpdate();
         }
     }
@@ -80,7 +81,7 @@ public class CategoryDAO implements GenericDAO<Category>{
         String query = "DELETE FROM category WHERE id = ?";
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
-            statement.setInt(1, category.getId());
+            statement.setString(1, category.getId());
             statement.executeUpdate();
         }
     }

@@ -1,6 +1,9 @@
 package com.dassolt.flightfolio.model;
 
+import java.util.UUID;
+
 public class Product {
+    private final String id;
     private String name;
     private String description;
     private double price;
@@ -15,7 +18,8 @@ public class Product {
     private int engineManufacturerId;
     private int categoryId;
 
-    public Product(String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, int manufacturerId, int engineManufacturerId, int categoryId) {
+    public Product(String id, String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, int manufacturerId, int engineManufacturerId, int categoryId) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -29,6 +33,14 @@ public class Product {
         this.manufacturerId = manufacturerId;
         this.engineManufacturerId = engineManufacturerId;
         this.categoryId = categoryId;
+    }
+
+    public Product(String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, int manufacturerId, int engineManufacturerId, int categoryId) {
+        this(UUID.randomUUID().toString(), name, description, price, quantity, engineNb, seatNb, wingspan, length, serviceCeiling, canSpreadDemocracy, manufacturerId, engineManufacturerId, categoryId);
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
