@@ -82,9 +82,6 @@ public class CategoryDAO implements GenericDAO<Category>{
     }
 
     private Category extractCategoryFromResultSet(ResultSet rs) throws SQLException {
-        Category category = new Category();
-        category.setId(rs.getInt("id"));
-        category.setName(rs.getString("name"));
-        return category;
+        return new Category(rs.getInt("id"), rs.getString("name"));
     }
 }

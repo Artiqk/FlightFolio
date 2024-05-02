@@ -103,21 +103,19 @@ public class ProductDAO implements GenericDAO<Product> {
     }
 
     private Product extractProductFromResultSet(ResultSet rs) throws SQLException {
-        Product product = new Product();
-        product.setId(rs.getInt("id"));
-        product.setName(rs.getString("name"));
-        product.setDescription(rs.getString("description"));
-        product.setPrice(rs.getDouble("price"));
-        product.setQuantity(rs.getInt("quantity"));
-        product.setEngineNb(rs.getInt("engine_nb"));
-        product.setSeatNb(rs.getInt("seat_nb"));
-        product.setWingspan(rs.getDouble("wingspan"));
-        product.setLength(rs.getDouble("length"));
-        product.setServiceCeiling(rs.getInt("service_ceiling"));
-        product.setCanSpreadDemocracy(rs.getBoolean("can_spread_democracy"));
-        product.setManufacturerId(rs.getInt("manufacturer_id"));
-        product.setEngineManufacturerId(rs.getInt("engine_manufacturer_id"));
-        product.setCategoryId(rs.getInt("category_id"));
-        return product;
+        return new Product(rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("description"),
+                rs.getDouble("price"),
+                rs.getInt("quantity"),
+                rs.getInt("engine_nb"),
+                rs.getInt("seat_nb"),
+                rs.getDouble("wingspan"),
+                rs.getDouble("length"),
+                rs.getInt("service_ceiling"),
+                rs.getBoolean("can_spread_democracy"),
+                rs.getInt("manufacturer_id"),
+                rs.getInt("engine_manufacturer_id"),
+                rs.getInt("category_id"));
     }
 }
