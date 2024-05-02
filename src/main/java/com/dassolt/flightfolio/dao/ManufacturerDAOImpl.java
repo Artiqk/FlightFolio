@@ -1,4 +1,4 @@
-package main.java.com.dassolt.flightfolio.dao;
+package com.dassolt.flightfolio.dao;
 
 public class ManufacturerDAOImpl {
 }

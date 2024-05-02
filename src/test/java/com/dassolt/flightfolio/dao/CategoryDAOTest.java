@@ -1,4 +1,4 @@
-package test.java.com.dassolt.flightfolio.dao;
+package com.dassolt.flightfolio.dao;
 
 public class CategoryDAOTest {
 }
