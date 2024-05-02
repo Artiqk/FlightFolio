@@ -27,9 +27,9 @@ public class ProductDAO implements GenericDAO<Product> {
                 rs.getDouble("length"),
                 rs.getInt("service_ceiling"),
                 rs.getBoolean("can_spread_democracy"),
-                rs.getInt("manufacturer_id"),
-                rs.getInt("engine_manufacturer_id"),
-                rs.getInt("category_id")
+                rs.getString("manufacturer_id"),
+                rs.getString("engine_manufacturer_id"),
+                rs.getString("category_id")
         );
     }
 
@@ -49,9 +49,9 @@ public class ProductDAO implements GenericDAO<Product> {
             statement.setDouble(9, product.getLength());
             statement.setInt(10, product.getServiceCeiling());
             statement.setBoolean(11, product.canSpreadDemocracy());
-            statement.setInt(12, product.getManufacturerId());
-            statement.setInt(13, product.getEngineManufacturerId());
-            statement.setInt(14, product.getCategoryId());
+            statement.setString(12, product.getManufacturerId());
+            statement.setString(13, product.getEngineManufacturerId());
+            statement.setString(14, product.getCategoryId());
             statement.executeUpdate();
         }
     }
@@ -104,9 +104,9 @@ public class ProductDAO implements GenericDAO<Product> {
             statement.setDouble(8, product.getLength());
             statement.setInt(9, product.getServiceCeiling());
             statement.setBoolean(10, product.canSpreadDemocracy());
-            statement.setInt(11, product.getManufacturerId());
-            statement.setInt(12, product.getEngineManufacturerId());
-            statement.setInt(13, product.getCategoryId());
+            statement.setString(11, product.getManufacturerId());
+            statement.setString(12, product.getEngineManufacturerId());
+            statement.setString(13, product.getCategoryId());
             statement.setString(14, product.getId());
             statement.executeUpdate();
         }
