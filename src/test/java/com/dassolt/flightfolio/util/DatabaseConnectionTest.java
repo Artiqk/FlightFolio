@@ -1,4 +1,10 @@
-package test.java.com.dassolt.flightfolio.util;
+package com.dassolt.flightfolio.util;
+
+import io.github.cdimascio.dotenv.Dotenv;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DatabaseConnectionTest {
     public static void main(String[] args) {
