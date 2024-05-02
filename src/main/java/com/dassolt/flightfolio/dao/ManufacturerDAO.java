@@ -71,12 +71,13 @@ public class ManufacturerDAO implements GenericDAO<Manufacturer> {
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, manufacturer.getName());
             statement.setString(2, manufacturer.getId());
+            statement.executeUpdate();
         }
     }
 
     @Override
     public void delete(Manufacturer manufacturer) throws SQLException {
-        String query = "DELETE FROM product WHERE id = ?";
+        String query = "DELETE FROM manufacturer WHERE id = ?";
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, manufacturer.getId());
