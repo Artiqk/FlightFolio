@@ -1,6 +1,7 @@
 package com.dassolt.flightfolio.dao;
 
 import com.dassolt.flightfolio.util.DatabaseConnection;
+import jdk.jshell.spi.ExecutionControl;
 
 import java.sql.Connection;
 import java.util.List;
@@ -15,6 +16,12 @@ public class CategoryDAO implements GenericDAO<CategoryDAO>{
             System.out.println("ERROR: @CategoryDAO" + e.getMessage());
         }
     }
+
+    @Override
+    public void add(CategoryDAO categoryDAO) {
+
+    }
+
     @Override
     public CategoryDAO findById(int id) {
         return null;

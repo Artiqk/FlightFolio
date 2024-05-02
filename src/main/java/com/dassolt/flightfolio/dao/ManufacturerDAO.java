@@ -16,6 +16,12 @@ public class ManufacturerDAO implements GenericDAO<Manufacturer> {
             System.out.println("ERROR: @ManufacturerDAO" + e.getMessage());
         }
     }
+
+    @Override
+    public void add(Manufacturer manufacturer) {
+
+    }
+
     @Override
     public Manufacturer findById(int id) {
         return null;

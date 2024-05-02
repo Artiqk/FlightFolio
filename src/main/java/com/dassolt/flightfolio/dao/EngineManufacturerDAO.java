@@ -16,6 +16,12 @@ public class EngineManufacturerDAO implements GenericDAO<EngineManufacturer> {
             System.out.println("ERROR: @EngineManufacturerDAO" + e.getMessage());
         }
     }
+
+    @Override
+    public void add(EngineManufacturer engineManufacturer) {
+
+    }
+
     @Override
     public EngineManufacturer findById(int id) {
         return null;
