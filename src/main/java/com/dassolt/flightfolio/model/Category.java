@@ -1,7 +1,7 @@
 package com.dassolt.flightfolio.model;
 
 public class Category {
-    private int id;
+    private final int id;
     private String name;
 
     public Category(int id, String name) {
@@ -11,10 +11,6 @@ public class Category {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
