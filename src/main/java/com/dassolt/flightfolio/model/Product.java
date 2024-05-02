@@ -115,20 +115,20 @@ public class Product {
         return manufacturerId;
     }
 
-    public int getEngineManufacturerId() {
-        return engineManufacturerId;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
     public void setManufacturerId(int manufacturerId) {
         this.manufacturerId = manufacturerId;
     }
 
+    public int getEngineManufacturerId() {
+        return engineManufacturerId;
+    }
+
     public void setEngineManufacturerId(int engineManufacturerId) {
         this.engineManufacturerId = engineManufacturerId;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
     }
 
     public void setCategoryId(int categoryId) {
