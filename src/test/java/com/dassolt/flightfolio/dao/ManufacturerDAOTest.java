@@ -1,35 +1,69 @@
 package com.dassolt.flightfolio.dao;
 
 import com.dassolt.flightfolio.model.Manufacturer;
+import static org.junit.jupiter.api.Assertions.*;
 
+import com.dassolt.flightfolio.util.DatabaseConnection;
+import org.junit.jupiter.api.*;
+
+import java.sql.SQLException;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ManufacturerDAOTest {
-    public static void main(String[] args) {
-        Manufacturer lockheedMartin = new Manufacturer("Lockheed Martin");
-        Manufacturer dassault = new Manufacturer("Dassault");
+    private static ManufacturerDAO dao;
+    private static Manufacturer lockheedMartin;
+    private static Manufacturer dassault;
 
-        try {
-            ManufacturerDAO dao = new ManufacturerDAO();
+    @BeforeAll
+    public static void setup() throws SQLException {
+        dao = new ManufacturerDAO();
+        lockheedMartin = new Manufacturer("7b8af0ad-b740-4638-bd6f-a48f84b18782", "Lockheed Martin");
+        dassault = new Manufacturer("0c78ca45-6ef8-4d5a-996c-7ca3de9b4f37", "Dassault");
+    }
 
-            dao.add(lockheedMartin);
-            dao.add(dassault);
+    @Test
+    @Order(1)
+    public void createTest() throws SQLException {
+        dao.add(lockheedMartin);
+        dao.add(dassault);
 
-             assert lockheedMartin.getId().equals(dao.findById(lockheedMartin.getId()).getId());
-             assert dao.findAll().size() == 2;
+        assertNotNull(dao.findById(lockheedMartin.getId()), "The object must be found in the database");
+        assertNotNull(dao.findById(dassault.getId()), "The object must be found in the database");
+    }
 
-             lockheedMartin.setName("Lockhead Martin");
-             dao.update(lockheedMartin);
+    @Test
+    @Order(2)
+    public void readAllTest() throws SQLException {
+        assertEquals(2, dao.findAll().size(), "The size of the list should be equal to 2.");
+    }
 
-             assert lockheedMartin.getName().equals(dao.findById(lockheedMartin.getId()).getName());
+    @Test
+    @Order(3)
+    public void readIdTest() throws SQLException {
+        assertEquals(lockheedMartin, dao.findById(lockheedMartin.getId()), "The 2 objects must be identical.");
+        assertEquals(dassault, dao.findById(dassault.getId()), "The 2 objects must be identical.");
+    }
 
-             dao.delete(lockheedMartin);
+    @Test
+    @Order(4)
+    public void updateTest() throws SQLException {
+        final String newName = "Lockhead Martin";
+        lockheedMartin.setName(newName);
+        dao.update(lockheedMartin);
+        assertEquals(newName, dao.findById(lockheedMartin.getId()).getName(), "The name in the database must be equal to the new name");
+    }
 
-             assert dao.findById(lockheedMartin.getId()) == null;
+    @Test
+    @Order(5)
+    public void deleteTest() throws SQLException {
+        dao.delete(lockheedMartin);
+        assertNull(dao.findById(lockheedMartin.getId()), "The returned object must be null after delete");
+        dao.delete(dassault);
+        assertTrue(dao.findAll().isEmpty(), "The list must be empty after all rows are deleted from the database");
+    }
 
-             dao.delete(dassault);
-
-             assert dao.findAll().isEmpty();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @AfterAll
+    public static void finish() throws SQLException {
+        DatabaseConnection.getConnection().close();
     }
 }
