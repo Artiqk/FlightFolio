@@ -4,6 +4,8 @@ import com.dassolt.flightfolio.model.Manufacturer;
 import com.dassolt.flightfolio.util.DatabaseConnection;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ManufacturerDAO implements GenericDAO<Manufacturer> {
@@ -18,8 +20,13 @@ public class ManufacturerDAO implements GenericDAO<Manufacturer> {
     }
 
     @Override
-    public void add(Manufacturer manufacturer) {
+    public void add(Manufacturer manufacturer) throws SQLException {
+        String query = "INSERT INTO manufacturer(name) VALUES(?)";
 
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, manufacturer.getName());
+            statement.executeUpdate();
+        }
     }
 
     @Override
