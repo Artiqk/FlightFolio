@@ -1,7 +1,6 @@
 package com.dassolt.flightfolio.model;
 
 public class Product {
-    private final int id;
     private String name;
     private String description;
     private double price;
@@ -16,8 +15,7 @@ public class Product {
     private int engineManufacturerId;
     private int categoryId;
 
-    public Product(int id, String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, int manufacturerId, int engineManufacturerId, int categoryId) {
-        this.id = id;
+    public Product(String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, int manufacturerId, int engineManufacturerId, int categoryId) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -31,10 +29,6 @@ public class Product {
         this.manufacturerId = manufacturerId;
         this.engineManufacturerId = engineManufacturerId;
         this.categoryId = categoryId;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {
