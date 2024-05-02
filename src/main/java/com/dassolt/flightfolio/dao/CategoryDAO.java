@@ -33,11 +33,6 @@ public class CategoryDAO implements GenericDAO<CategoryDAO>{
     }
 
     @Override
-    public void save(CategoryDAO categoryDAO) {
-
-    }
-
-    @Override
     public void update(CategoryDAO categoryDAO) {
 
     }

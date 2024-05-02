@@ -74,11 +74,6 @@ public class ProductDAO implements GenericDAO<Product> {
     }
 
     @Override
-    public void save(Product product) {
-
-    }
-
-    @Override
     public void update(Product product) {
 
     }

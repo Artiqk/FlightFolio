@@ -33,11 +33,6 @@ public class EngineManufacturerDAO implements GenericDAO<EngineManufacturer> {
     }
 
     @Override
-    public void save(EngineManufacturer engineManufacturer) {
-
-    }
-
-    @Override
     public void update(EngineManufacturer engineManufacturer) {
 
     }

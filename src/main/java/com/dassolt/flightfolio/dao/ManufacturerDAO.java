@@ -33,11 +33,6 @@ public class ManufacturerDAO implements GenericDAO<Manufacturer> {
     }
 
     @Override
-    public void save(Manufacturer manufacturer) {
-
-    }
-
-    @Override
     public void update(Manufacturer manufacturer) {
 
     }

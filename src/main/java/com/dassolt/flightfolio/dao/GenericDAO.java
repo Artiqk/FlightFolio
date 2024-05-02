@@ -7,7 +7,6 @@ public interface GenericDAO <T> {
     void add(T t);
     T findById(int id);
     List<T> findAll();
-    void save(T t);
     void update(T t);
     void delete(T t);
 
