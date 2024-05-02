@@ -15,6 +15,10 @@ public class EngineManufacturer {
         this(UUID.randomUUID().toString(), name);
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

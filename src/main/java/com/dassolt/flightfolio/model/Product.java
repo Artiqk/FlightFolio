@@ -1,5 +1,7 @@
 package com.dassolt.flightfolio.model;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.UUID;
 
 public class Product {
@@ -14,11 +16,11 @@ public class Product {
     private double length;
     private int serviceCeiling;
     private boolean canSpreadDemocracy;
-    private int manufacturerId;
-    private int engineManufacturerId;
-    private int categoryId;
+    private String manufacturerId;
+    private String engineManufacturerId;
+    private String categoryId;
 
-    public Product(String id, String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, int manufacturerId, int engineManufacturerId, int categoryId) {
+    public Product(String id, String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, String manufacturerId, String engineManufacturerId, String categoryId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -35,7 +37,7 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public Product(String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, int manufacturerId, int engineManufacturerId, int categoryId) {
+    public Product(String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, String manufacturerId, String engineManufacturerId, String categoryId) {
         this(UUID.randomUUID().toString(), name, description, price, quantity, engineNb, seatNb, wingspan, length, serviceCeiling, canSpreadDemocracy, manufacturerId, engineManufacturerId, categoryId);
     }
 
@@ -123,33 +125,42 @@ public class Product {
         this.canSpreadDemocracy = canSpreadDemocracy;
     }
 
-    public int getManufacturerId() {
+    public String getManufacturerId() {
         return manufacturerId;
     }
 
-    public void setManufacturerId(int manufacturerId) {
+    public void setManufacturerId(String manufacturerId) {
         this.manufacturerId = manufacturerId;
     }
 
-    public int getEngineManufacturerId() {
+    public String getEngineManufacturerId() {
         return engineManufacturerId;
     }
 
-    public void setEngineManufacturerId(int engineManufacturerId) {
+    public void setEngineManufacturerId(String engineManufacturerId) {
         this.engineManufacturerId = engineManufacturerId;
     }
 
-    public int getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
     @Override
     public String toString() {
-        return String.format("Name : %s\n\nDescription : %s\n\nPrice : %.2f\n\nQuantity : %d",
-                             this.getName(), this.getDescription(), this.getPrice(), this.getQuantity());
+        double price = this.getPrice();
+
+        NumberFormat formatter = NumberFormat.getInstance(Locale.US);
+
+        formatter.setMaximumFractionDigits(2);
+        formatter.setMinimumFractionDigits(2);
+
+        String formattedPrice = formatter.format(price);
+
+        return String.format("Name : %s\n\nDescription : %s\n\nPrice : $%s\n\nQuantity : %d\n",
+                             this.getName(), this.getDescription(), formattedPrice, this.getQuantity());
     }
 }
