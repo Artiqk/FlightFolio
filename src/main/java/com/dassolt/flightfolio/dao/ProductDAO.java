@@ -107,8 +107,6 @@ public class ProductDAO implements GenericDAO<Product> {
             statement.setInt(13, product.getCategoryId());
             statement.setInt(14, product.getId());
             statement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("ERROR: Failed to update product - " + e.getMessage());
         }
     }
 
