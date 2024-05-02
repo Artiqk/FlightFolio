@@ -12,9 +12,9 @@ public class Product {
     private double length;
     private int serviceCeiling;
     private boolean canSpreadDemocracy;
-    private final int manufacturerId;
-    private final int engineManufacturerId;
-    private final int categoryId;
+    private int manufacturerId;
+    private int engineManufacturerId;
+    private int categoryId;
 
     public Product(int id, String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, int manufacturerId, int engineManufacturerId, int categoryId) {
         this.id = id;
@@ -127,6 +127,18 @@ public class Product {
 
     public int getCategoryId() {
         return categoryId;
+    }
+
+    public void setManufacturerId(int manufacturerId) {
+        this.manufacturerId = manufacturerId;
+    }
+
+    public void setEngineManufacturerId(int engineManufacturerId) {
+        this.engineManufacturerId = engineManufacturerId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Override
