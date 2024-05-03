@@ -1,4 +1,4 @@
-package com.dassolt.flightfolio.util;
+package com.dassolt.flightfolio.util.dataloader;
 
 import com.dassolt.flightfolio.model.Category;
 import com.dassolt.flightfolio.service.CategoryService;
