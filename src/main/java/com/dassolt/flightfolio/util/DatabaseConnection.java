@@ -13,11 +13,9 @@ public class DatabaseConnection {
     private static final String URL;
     private static final String USER;
     private static final String PASSWORD;
-    static {
-        // Charger les variables d'environnement à partir du fichier .env
-        Dotenv dotenv = Dotenv.load();
 
-        // Récupérer les informations de connexion à la base de données à partir des variables d'environnement
+    static {
+        Dotenv dotenv = Dotenv.load();
         URL_TEST = dotenv.get("DB_URL_TEST");
         URL = dotenv.get("DB_URL");
         USER = dotenv.get("DB_USER");
