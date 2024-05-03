@@ -28,7 +28,7 @@ public class ProductDAOTest {
         military = new Category("Military");
         dassault = new Manufacturer("Dassault");
         safran = new EngineManufacturer("Safran");
-        rafaleM = new Product("Rafale M", "A powerful and agile multirole fighter, equipped to operate from aircraft carriers and meet various mission requirements.", 74000000.00, 9, 2, 1, 10.90, 15.27, 15235, true, dassault.getId(), safran.getId(), military.getId());
+        rafaleM = new Product("Rafale M", "A powerful and agile multirole fighter, equipped to operate from aircraft carriers and meet various mission requirements.", 74000000.00, 9, 2, 1, 15235, true, dassault.getId(), safran.getId(), military.getId());
 
         new CategoryDAO(useTestEnvironment).add(military);
         new ManufacturerDAO(useTestEnvironment).add(dassault);

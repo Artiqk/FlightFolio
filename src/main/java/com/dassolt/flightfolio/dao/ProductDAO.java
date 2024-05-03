@@ -27,8 +27,6 @@ public class ProductDAO implements GenericDAO<Product> {
                 rs.getInt("quantity"),
                 rs.getInt("engine_nb"),
                 rs.getInt("seat_nb"),
-                rs.getDouble("wingspan"),
-                rs.getDouble("length"),
                 rs.getInt("service_ceiling"),
                 rs.getBoolean("can_spread_democracy"),
                 rs.getString("manufacturer_id"),
@@ -39,7 +37,7 @@ public class ProductDAO implements GenericDAO<Product> {
 
     @Override
     public void add(Product product) throws SQLException {
-        String query = "INSERT INTO product(id,name,description,price,quantity,engine_nb,seat_nb,wingspan,length,service_ceiling,can_spread_democracy,manufacturer_id,engine_manufacturer_id,category_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO product(id,name,description,price,quantity,engine_nb,seat_nb,service_ceiling,can_spread_democracy,manufacturer_id,engine_manufacturer_id,category_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, product.getId());
@@ -49,13 +47,11 @@ public class ProductDAO implements GenericDAO<Product> {
             statement.setInt(5, product.getQuantity());
             statement.setInt(6, product.getEngineNb());
             statement.setInt(7, product.getSeatNb());
-            statement.setDouble(8, product.getWingspan());
-            statement.setDouble(9, product.getLength());
-            statement.setInt(10, product.getServiceCeiling());
-            statement.setBoolean(11, product.canSpreadDemocracy());
-            statement.setString(12, product.getManufacturerId());
-            statement.setString(13, product.getEngineManufacturerId());
-            statement.setString(14, product.getCategoryId());
+            statement.setInt(8, product.getServiceCeiling());
+            statement.setBoolean(9, product.canSpreadDemocracy());
+            statement.setString(10, product.getManufacturerId());
+            statement.setString(11, product.getEngineManufacturerId());
+            statement.setString(12, product.getCategoryId());
             statement.executeUpdate();
         }
     }
@@ -95,7 +91,7 @@ public class ProductDAO implements GenericDAO<Product> {
 
     @Override
     public void update(Product product) throws SQLException {
-        String query = "UPDATE product SET name = ?, description = ?, price = ?, quantity = ?, engine_nb = ?, seat_nb = ?, wingspan = ?, length = ?, service_ceiling = ?, can_spread_democracy = ?, manufacturer_id = ?, engine_manufacturer_id = ?, category_id = ? WHERE id = ?";
+        String query = "UPDATE product SET name = ?, description = ?, price = ?, quantity = ?, engine_nb = ?, seat_nb = ?, service_ceiling = ?, can_spread_democracy = ?, manufacturer_id = ?, engine_manufacturer_id = ?, category_id = ? WHERE id = ?";
 
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, product.getName());
@@ -104,14 +100,12 @@ public class ProductDAO implements GenericDAO<Product> {
             statement.setInt(4, product.getQuantity());
             statement.setInt(5, product.getEngineNb());
             statement.setInt(6, product.getSeatNb());
-            statement.setDouble(7, product.getWingspan());
-            statement.setDouble(8, product.getLength());
-            statement.setInt(9, product.getServiceCeiling());
-            statement.setBoolean(10, product.canSpreadDemocracy());
-            statement.setString(11, product.getManufacturerId());
-            statement.setString(12, product.getEngineManufacturerId());
-            statement.setString(13, product.getCategoryId());
-            statement.setString(14, product.getId());
+            statement.setInt(7, product.getServiceCeiling());
+            statement.setBoolean(8, product.canSpreadDemocracy());
+            statement.setString(9, product.getManufacturerId());
+            statement.setString(10, product.getEngineManufacturerId());
+            statement.setString(11, product.getCategoryId());
+            statement.setString(12, product.getId());
             statement.executeUpdate();
         }
     }

@@ -13,15 +13,13 @@ public class Product {
     private int quantity;
     private int engineNb;
     private int seatNb;
-    private double wingspan;
-    private double length;
     private int serviceCeiling;
     private boolean canSpreadDemocracy;
     private String manufacturerId;
     private String engineManufacturerId;
     private String categoryId;
 
-    public Product(String id, String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, String manufacturerId, String engineManufacturerId, String categoryId) {
+    public Product(String id, String name, String description, double price, int quantity, int engineNb, int seatNb, int serviceCeiling, boolean canSpreadDemocracy, String manufacturerId, String engineManufacturerId, String categoryId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -29,8 +27,6 @@ public class Product {
         this.quantity = quantity;
         this.engineNb = engineNb;
         this.seatNb = seatNb;
-        this.wingspan = wingspan;
-        this.length = length;
         this.serviceCeiling = serviceCeiling;
         this.canSpreadDemocracy = canSpreadDemocracy;
         this.manufacturerId = manufacturerId;
@@ -38,8 +34,8 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public Product(String name, String description, double price, int quantity, int engineNb, int seatNb, double wingspan, double length, int serviceCeiling, boolean canSpreadDemocracy, String manufacturerId, String engineManufacturerId, String categoryId) {
-        this(UUID.randomUUID().toString(), name, description, price, quantity, engineNb, seatNb, wingspan, length, serviceCeiling, canSpreadDemocracy, manufacturerId, engineManufacturerId, categoryId);
+    public Product(String name, String description, double price, int quantity, int engineNb, int seatNb, int serviceCeiling, boolean canSpreadDemocracy, String manufacturerId, String engineManufacturerId, String categoryId) {
+        this(UUID.randomUUID().toString(), name, description, price, quantity, engineNb, seatNb, serviceCeiling, canSpreadDemocracy, manufacturerId, engineManufacturerId, categoryId);
     }
 
     public String getId() {
@@ -92,22 +88,6 @@ public class Product {
 
     public void setSeatNb(int seatNb) {
         this.seatNb = seatNb;
-    }
-
-    public double getWingspan() {
-        return wingspan;
-    }
-
-    public void setWingspan(double wingspan) {
-        this.wingspan = wingspan;
-    }
-
-    public double getLength() {
-        return length;
-    }
-
-    public void setLength(double length) {
-        this.length = length;
     }
 
     public int getServiceCeiling() {
@@ -170,11 +150,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Double.compare(getPrice(), product.getPrice()) == 0 && getQuantity() == product.getQuantity() && getEngineNb() == product.getEngineNb() && getSeatNb() == product.getSeatNb() && Double.compare(getWingspan(), product.getWingspan()) == 0 && Double.compare(getLength(), product.getLength()) == 0 && getServiceCeiling() == product.getServiceCeiling() && canSpreadDemocracy == product.canSpreadDemocracy && Objects.equals(getId(), product.getId()) && Objects.equals(getName(), product.getName()) && Objects.equals(getDescription(), product.getDescription()) && Objects.equals(getManufacturerId(), product.getManufacturerId()) && Objects.equals(getEngineManufacturerId(), product.getEngineManufacturerId()) && Objects.equals(getCategoryId(), product.getCategoryId());
+        return Double.compare(getPrice(), product.getPrice()) == 0 && getQuantity() == product.getQuantity() && getEngineNb() == product.getEngineNb() && getSeatNb() == product.getSeatNb() && getServiceCeiling() == product.getServiceCeiling() && canSpreadDemocracy == product.canSpreadDemocracy && Objects.equals(getId(), product.getId()) && Objects.equals(getName(), product.getName()) && Objects.equals(getDescription(), product.getDescription()) && Objects.equals(getManufacturerId(), product.getManufacturerId()) && Objects.equals(getEngineManufacturerId(), product.getEngineManufacturerId()) && Objects.equals(getCategoryId(), product.getCategoryId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDescription(), getPrice(), getQuantity(), getEngineNb(), getSeatNb(), getWingspan(), getLength(), getServiceCeiling(), canSpreadDemocracy, getManufacturerId(), getEngineManufacturerId(), getCategoryId());
+        return Objects.hash(getId(), getName(), getDescription(), getPrice(), getQuantity(), getEngineNb(), getSeatNb(), getServiceCeiling(), canSpreadDemocracy, getManufacturerId(), getEngineManufacturerId(), getCategoryId());
     }
 }
