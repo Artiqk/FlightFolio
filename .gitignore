@@ -7,6 +7,7 @@ backups/csv/category.csv
 backups/csv/engine_manufacturer.csv
 backups/csv/manufacturer.csv
 backups/csv/product.csv
+OUT
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
