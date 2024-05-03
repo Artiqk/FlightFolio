@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class DatabaseConnection {
 
     private static Connection connection;
+    private static final String URL_TEST;
     private static final String URL;
     private static final String USER;
     private static final String PASSWORD;
@@ -17,16 +18,23 @@ public class DatabaseConnection {
         Dotenv dotenv = Dotenv.load();
 
         // Récupérer les informations de connexion à la base de données à partir des variables d'environnement
+        URL_TEST = dotenv.get("DB_URL_TEST");
         URL = dotenv.get("DB_URL");
         USER = dotenv.get("DB_USER");
         PASSWORD = dotenv.get("DB_PASSWORD");
     }
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection(boolean isTestEnvironment) throws SQLException {
+        final String url = isTestEnvironment ? URL_TEST : URL;
+
         if (connection == null || connection.isClosed()) {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = DriverManager.getConnection(url, USER, PASSWORD);
         }
         return connection;
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return getConnection(false);
     }
 
     public static void closeConnection() throws SQLException {

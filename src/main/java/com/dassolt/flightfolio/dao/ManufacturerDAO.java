@@ -10,6 +10,10 @@ import java.util.List;
 public class ManufacturerDAO implements GenericDAO<Manufacturer> {
     private final Connection conn;
 
+    public ManufacturerDAO(boolean isTestEnvironment) throws SQLException {
+        conn = DatabaseConnection.getConnection(isTestEnvironment);
+    }
+
     public ManufacturerDAO() throws SQLException {
         conn = DatabaseConnection.getConnection();
     }

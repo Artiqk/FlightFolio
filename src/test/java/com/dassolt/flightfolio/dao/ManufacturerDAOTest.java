@@ -16,7 +16,7 @@ public class ManufacturerDAOTest {
 
     @BeforeAll
     public static void setup() throws SQLException {
-        dao = new ManufacturerDAO();
+        dao = new ManufacturerDAO(true);
         lockheedMartin = new Manufacturer("7b8af0ad-b740-4638-bd6f-a48f84b18782", "Lockheed Martin");
         dassault = new Manufacturer("0c78ca45-6ef8-4d5a-996c-7ca3de9b4f37", "Dassault");
     }
