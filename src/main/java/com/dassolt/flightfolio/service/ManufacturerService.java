@@ -4,11 +4,14 @@ import com.dassolt.flightfolio.dao.ManufacturerDAO;
 import com.dassolt.flightfolio.model.Manufacturer;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ManufacturerService {
-    private ManufacturerDAO manufacturerDAO;
+    private final ManufacturerDAO manufacturerDAO;
+
+    public ManufacturerService(boolean isTestEnvironment) throws SQLException {
+        manufacturerDAO = new ManufacturerDAO(isTestEnvironment);
+    }
 
     public ManufacturerService() throws SQLException {
         manufacturerDAO = new ManufacturerDAO();
