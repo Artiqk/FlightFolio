@@ -8,14 +8,10 @@ import com.dassolt.flightfolio.util.DatabaseConnection;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ProductDAOTest {
-    private static CategoryDAO categoryDAO;
-    private static ManufacturerDAO manufacturerDAO;
-    private static EngineManufacturerDAO engineManufacturerDAO;
     private static ProductDAO productDAO;
 
     private static Category military;
@@ -23,13 +19,10 @@ public class ProductDAOTest {
     private static EngineManufacturer safran;
     private static Product rafaleM;
 
+    private static final boolean useTestEnvironment = true;
+
     @BeforeAll
     public static void setup() throws SQLException {
-        boolean useTestEnvironment = true;
-
-        categoryDAO = new CategoryDAO(useTestEnvironment);
-        manufacturerDAO = new ManufacturerDAO(useTestEnvironment);
-        engineManufacturerDAO = new EngineManufacturerDAO(useTestEnvironment);
         productDAO = new ProductDAO(useTestEnvironment);
 
         military = new Category("Military");
@@ -37,9 +30,9 @@ public class ProductDAOTest {
         safran = new EngineManufacturer("Safran");
         rafaleM = new Product("Rafale M", "A powerful and agile multirole fighter, equipped to operate from aircraft carriers and meet various mission requirements.", 74000000.00, 9, 2, 1, 10.90, 15.27, 15235, true, dassault.getId(), safran.getId(), military.getId());
 
-        categoryDAO.add(military);
-        manufacturerDAO.add(dassault);
-        engineManufacturerDAO.add(safran);
+        new CategoryDAO(useTestEnvironment).add(military);
+        new ManufacturerDAO(useTestEnvironment).add(dassault);
+        new EngineManufacturerDAO(useTestEnvironment).add(safran);
     }
 
     @Test
@@ -86,9 +79,9 @@ public class ProductDAOTest {
 
     @AfterAll
     public static void finish() throws SQLException {
-        engineManufacturerDAO.delete(safran);
-        manufacturerDAO.delete(dassault);
-        categoryDAO.delete(military);
+        new EngineManufacturerDAO(useTestEnvironment).delete(safran);
+        new ManufacturerDAO(useTestEnvironment).delete(dassault);
+        new CategoryDAO(useTestEnvironment).delete(military);
         DatabaseConnection.getConnection().close();
     }
 }
