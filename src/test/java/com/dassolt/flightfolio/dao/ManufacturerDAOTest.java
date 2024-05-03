@@ -50,16 +50,16 @@ public class ManufacturerDAOTest {
         final String newName = "Lockhead Martin";
         lockheedMartin.setName(newName);
         dao.update(lockheedMartin);
-        assertEquals(newName, dao.findById(lockheedMartin.getId()).getName(), "The name in the database must be equal to the new name");
+        assertEquals(newName, dao.findById(lockheedMartin.getId()).getName(), "The name in the database must be equal to the new name.");
     }
 
     @Test
     @Order(5)
     public void deleteTest() throws SQLException {
         dao.delete(lockheedMartin);
-        assertNull(dao.findById(lockheedMartin.getId()), "The returned object must be null after delete");
+        assertNull(dao.findById(lockheedMartin.getId()), "The returned object must be null after delete.");
         dao.delete(dassault);
-        assertTrue(dao.findAll().isEmpty(), "The list must be empty after all rows are deleted from the database");
+        assertTrue(dao.findAll().isEmpty(), "The list must be empty after all rows have been deleted from the database.");
     }
 
     @AfterAll
