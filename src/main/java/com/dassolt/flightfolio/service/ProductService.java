@@ -18,6 +18,11 @@ public class ProductService {
     }
 
     public void addProduct(Product product) {
+        if (product == null) {
+            throw new IllegalArgumentException("Product cannot be null");
+        }
+        validateProduct(product);
+
         try {
             productDAO.add(product);
         } catch (SQLException e) {
@@ -26,26 +31,31 @@ public class ProductService {
     }
 
     public Product retrieveProductById(String id) {
-        Product product = null;
+        if (id == null || id.trim().isEmpty()) {
+            throw new IllegalArgumentException("Product ID cannot be empty.");
+        }
+
         try {
-            product = productDAO.findById(id);
+            return productDAO.findById(id);
         } catch (SQLException e) {
             throw new RuntimeException("Failed to retrieve product due to a database error", e);
         }
-        return product;
     }
 
     public List<Product> retrieveAllProducts() {
-        List<Product> products = null;
         try {
-            products = productDAO.findAll();
+            return productDAO.findAll();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to retrieve all products due to a database error", e);
         }
-        return products;
     }
 
     public void updateProduct(Product product) {
+        if (product == null || product.getId() == null) {
+            throw new IllegalArgumentException("Product and its ID cannot be null.");
+        }
+        validateProduct(product);
+
         try {
             productDAO.update(product);
         } catch (SQLException e) {
@@ -54,10 +64,24 @@ public class ProductService {
     }
 
     public void deleteProduct(Product product) {
+        if (product == null || product.getId() == null) {
+            throw new IllegalArgumentException("Product and its ID cannot be null.");
+        }
+
         try {
             productDAO.delete(product);
         } catch (SQLException e) {
             throw new RuntimeException("Failed to delete product due to a database error", e);
         }
+    }
+
+    private void validateProduct(Product product) {
+        if (product.getName() == null || product.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Product name cannot be empty.");
+        }
+        if (product.getManufacturerId() == null || product.getEngineManufacturerId() == null) {
+            throw new IllegalArgumentException("Manufacturer and Engine Manufacturer IDs cannot be null.");
+        }
+        // Additional validations can be included based on business requirements
     }
 }

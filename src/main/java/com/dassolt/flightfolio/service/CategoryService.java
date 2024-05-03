@@ -18,6 +18,10 @@ public class CategoryService {
     }
 
     public void addCategory(Category category) {
+        if (category == null || category.getName() == null || category.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Category name cannot be empty");
+        }
+
         try {
             categoryDAO.add(category);
         } catch (SQLException e) {
@@ -26,38 +30,46 @@ public class CategoryService {
     }
 
     public Category retrieveCategoryById(String id) {
-        Category category = null;
+        if (id == null || id.trim().isEmpty()) {
+            throw new IllegalArgumentException("ID parameter cannot be empty.");
+        }
 
         try {
-            category = categoryDAO.findById(id);
+            return categoryDAO.findById(id);
         } catch (SQLException e) {
             throw new RuntimeException("Failed to retrieve category due to a database error", e);
         }
-
-        return category;
     }
 
     public List<Category> retrieveAllCategories() {
-        List<Category> categories = null;
-
         try {
-            categories = categoryDAO.findAll();
+            return categoryDAO.findAll();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to retrieve all categories due to a database error", e);
         }
-
-        return categories;
     }
 
     public void updateCategory(Category category) {
+        if (category == null || category.getId() == null) {
+            throw new IllegalArgumentException("Category and its ID cannot be null.");
+        }
+
         try {
-            categoryDAO.update(category);
+            Category categoryToUpdate = categoryDAO.findById(category.getId());
+
+            if (categoryToUpdate != null && !categoryToUpdate.equals(category)) {
+                categoryDAO.update(category);
+            }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to update category due to a database error", e);
         }
     }
 
     public void deleteCategory(Category category) {
+        if (category == null || category.getId() == null) {
+            throw new IllegalArgumentException("Category and its ID cannot be null.");
+        }
+
         try {
             categoryDAO.delete(category);
         } catch (SQLException e) {
