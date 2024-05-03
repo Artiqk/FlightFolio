@@ -10,8 +10,12 @@ import java.util.List;
 public class CategoryDAO implements GenericDAO<Category>{
     private final Connection conn;
 
+    public CategoryDAO(boolean isTestEnvironment) throws SQLException {
+        conn = DatabaseConnection.getConnection(isTestEnvironment);
+    }
+
     public CategoryDAO() throws SQLException {
-        conn = DatabaseConnection.getConnection();
+        conn = DatabaseConnection.getConnection(false);
     }
 
     private Category createCategoryFromResultSet(ResultSet rs) throws SQLException {
