@@ -30,7 +30,7 @@ public class Manufacturer {
 
     @Override
     public String toString() {
-        return String.format("(%s): %s", this.getId(), this.getName());
+        return String.format("%s", this.getName());
     }
 
     @Override
