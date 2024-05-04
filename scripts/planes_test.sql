@@ -33,8 +33,6 @@ CREATE TABLE `product` (
   `engine_nb` int NOT NULL,
   `engine_manufacturer_id` varchar(36) NOT NULL,
   `seat_nb` int NOT NULL,
-  `wingspan` DECIMAL(10,2) NOT NULL,
-  `length` DECIMAL(10,2) NOT NULL,
   `service_ceiling` int NOT NULL,
   `can_spread_democracy` TINYINT(1) NOT NULL DEFAULT 0,
   `category_id` varchar(36),
