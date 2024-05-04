@@ -15,10 +15,10 @@ import java.util.List;
 
 public class DatabaseInsertDataset {
     public static void main(String[] args) throws SQLException {
-        CategoryService categoryService = new CategoryService(true);
-        ManufacturerService manufacturerService = new ManufacturerService(true);
-        EngineManufacturerService engineManufacturerService = new EngineManufacturerService(true);
-        ProductService productService = new ProductService(true);
+        CategoryService categoryService = new CategoryService();
+        ManufacturerService manufacturerService = new ManufacturerService();
+        EngineManufacturerService engineManufacturerService = new EngineManufacturerService();
+        ProductService productService = new ProductService();
 
         Category commercial = new Category("Commercial");
         Category privateCat = new Category("Private");
@@ -27,29 +27,21 @@ public class DatabaseInsertDataset {
         categoryService.addCategory(privateCat);
         categoryService.addCategory(military);
 
+        Manufacturer robin = new Manufacturer("Robin Aircraft");
         Manufacturer boeing = new Manufacturer("Boeing");
-        Manufacturer airbus = new Manufacturer("Airbus");
-        Manufacturer lockheed = new Manufacturer("Lockheed Martin");
         Manufacturer dassault = new Manufacturer("Dassault");
-        Manufacturer cessna = new Manufacturer("Cessna");
+        manufacturerService.addManufacturer(robin);
         manufacturerService.addManufacturer(boeing);
-        manufacturerService.addManufacturer(airbus);
-        manufacturerService.addManufacturer(lockheed);
         manufacturerService.addManufacturer(dassault);
-        manufacturerService.addManufacturer(cessna);
 
-        EngineManufacturer ge = new EngineManufacturer("General Electric");
-        EngineManufacturer rollsRoyce = new EngineManufacturer("Rolls-Royce");
-        EngineManufacturer pratt = new EngineManufacturer("Pratt & Whitney");
-        EngineManufacturer safran = new EngineManufacturer("Safran Aircraft Engines");
         EngineManufacturer honeywell = new EngineManufacturer("Honeywell Aerospace");
-        engineManufacturerService.addEngineManufacturer(ge);
-        engineManufacturerService.addEngineManufacturer(rollsRoyce);
-        engineManufacturerService.addEngineManufacturer(pratt);
-        engineManufacturerService.addEngineManufacturer(safran);
+        EngineManufacturer ge = new EngineManufacturer("General Electric");
+        EngineManufacturer safran = new EngineManufacturer("Safran Aircraft Engines");
         engineManufacturerService.addEngineManufacturer(honeywell);
+        engineManufacturerService.addEngineManufacturer(ge);
+        engineManufacturerService.addEngineManufacturer(safran);
 
-        Product p1 = new Product("Robin DR-400", "A light, nimble, and economical single-engine plane, perfect for leisure flights and pilot training.", 120000.00, 10, 1, 4, 4000, false, cessna.getId(), honeywell.getId(), privateCat.getId());
+        Product p1 = new Product("Robin DR-400", "A light, nimble, and economical single-engine plane, perfect for leisure flights and pilot training.", 120000.00, 10, 1, 4, 4000, false, robin.getId(), honeywell.getId(), privateCat.getId());
         Product p2 = new Product("Boeing 777X", "The newest member of the world-renowned Boeing 777 family, designed for efficiency and exceptional passenger comfort.", 320000000.00, 5, 2, 396, 13100, false, boeing.getId(), ge.getId(), commercial.getId());
         Product p3 = new Product("Rafale M", "A powerful and agile multirole fighter, equipped to operate from aircraft carriers and meet various mission requirements.", 78000000.00, 8, 2, 1, 15240, true, dassault.getId(), safran.getId(), military.getId());
 
